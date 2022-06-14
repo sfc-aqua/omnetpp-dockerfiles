@@ -1,5 +1,5 @@
 
-FROM omnetpp-base
+FROM omnetpp-base:latest
 
 RUN rm -rf /root/omnetpp/ide
 
