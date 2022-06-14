@@ -21,8 +21,8 @@ jobs:
           context: .
           file: ./Dockerfile.ci
           tags: |
-            ghcr.io/${{ github.repository }}-ci:latest
-            ghcr.io/${{ github.repository }}-ci:${{ github.sha }}
+            ghcr.io/${{ github.repository }}:latest
+            ghcr.io/${{ github.repository }}:ci-${{ github.sha }}
       - name: Build and push dev image
         uses: docker/build-push-action@v3
         with:
@@ -30,5 +30,4 @@ jobs:
           context: .
           file: ./Dockerfile.dev
           tags: |
-            ghcr.io/${{ github.repository }}-dev:latest
-            ghcr.io/${{ github.repository }}-dev:${{ github.sha }}
+            ghcr.io/${{ github.repository }}:dev-${{ github.sha }}
