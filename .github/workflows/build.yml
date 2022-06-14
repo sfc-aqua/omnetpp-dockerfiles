@@ -28,7 +28,7 @@ jobs:
       - name: Load image
         run: |
           docker images -a
-          docker load --input /tmp/omnetpp-wasm.tar
+          docker load --input /tmp/omnetpp-base.tar
       - name: Build and push ci image
         uses: docker/build-push-action@v2
         with:
