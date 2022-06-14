@@ -24,30 +24,30 @@ jobs:
           tags: |
             omnetpp-base:latest
             omnetpp-base:${{ github.sha }}
-          cache-to: type=docker,dest=/tmp/omnetpp-base.tar
-      # - name: Load image
-        # run: |
-          # docker load --input /tmp/omnetpp-base.tar
-          # docker images -a
+          outputs: type=docker,dest=/tmp/omnetpp-base.tar
+      - name: Load image
+        run: |
+          docker load --input /tmp/omnetpp-base.tar
+          docker images -a
       - name: Build and push ci image
         uses: docker/build-push-action@v3
         with:
           push: true
           context: .
+          load: true
           file: ./Dockerfile.ci
           tags: |
             ghcr.io/${{ github.repository }}-ci:latest
             ghcr.io/${{ github.repository }}-ci:${{ github.sha }}
-          cache-from: type=docker,src=/tmp/omnetpp-base.tar
           # outputs: type=docker,dest=/tmp/omnetpp-ci.tard
       - name: Build and push dev image
         uses: docker/build-push-action@v3
         with:
           push: true
           context: .
+          load: true
           file: ./Dockerfile.dev
           tags: |
             ghcr.io/${{ github.repository }}-dev:latest
             ghcr.io/${{ github.repository }}-dev:${{ github.sha }}
           # outputs: type=docker,dest=/tmp/omnetpp-dev.tar
-          cache-from: type=docker,src=/tmp/omnetpp-base.tar
