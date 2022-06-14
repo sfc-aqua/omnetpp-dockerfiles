@@ -1,0 +1,5 @@
+
+FROM omnetpp-base
+
+RUN rm -rf /root/omnetpp/ide
+

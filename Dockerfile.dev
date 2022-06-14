@@ -1,0 +1,22 @@
+
+FROM omnetpp-base
+
+RUN mkdir -p /root/omnetpp
+WORKDIR /root/omnetpp
+RUN apt-get update -y && apt-get install -y --no-install-recommends \
+    qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools libqt5opengl5-dev libgtk-3-0 default-jre  \
+    vim \
+    && apt autoremove -y \
+    && apt clean \
+    && rm -r /var/lib/apt/lists/*
+RUN touch /root/.hushlogin
+
+RUN bash -c "source setenv && \
+    ./configure WITH_OSG=no WITH_QTENV=yes && \
+    make -j $(nproc) MODE=debug base && \
+    make -j $(nproc) MODE=release base && \
+    rm -r doc out test samples config.log config.status"
+
+ENV HOME=/root/
+CMD /bin/bash --init-file /root/.bashrc
+WORKDIR /root/quisp
