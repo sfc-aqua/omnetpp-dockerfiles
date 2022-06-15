@@ -17,17 +17,21 @@ jobs:
       - name: Build and push ci image
         uses: docker/build-push-action@v3
         with:
-          push: true
+          push: ${{ startsWith(github.ref, 'refs/tags/') }}
           context: .
           file: ./Dockerfile.ci
           tags: |
-            ghcr.io/${{ github.repository }}:latest
-            ghcr.io/${{ github.repository }}:ci-${{ github.sha }}
+            ghcr.io/${{ github.repository_owner }}/quisp-ci:latest
+            ghcr.io/${{ github.repository_owner }}/quisp-ci:${{ github.ref_name }}
+            ghcr.io/${{ github.repository_owner }}/quisp-ci:${{ github.sha }}
       - name: Build and push dev image
         uses: docker/build-push-action@v3
         with:
-          push: true
+          push: ${{ startsWith(github.ref, 'refs/tags/') }}
           context: .
           file: ./Dockerfile.dev
           tags: |
-            ghcr.io/${{ github.repository }}:dev-${{ github.sha }}
+            ghcr.io/${{ github.repository_owner }}/quisp:latest
+            ghcr.io/${{ github.repository_owner }}/quisp:${{ github.ref_name }}
+            ghcr.io/${{ github.repository_owner }}/quisp:${{ github.sha }}
+
