@@ -7,7 +7,7 @@ ARG OMNETPP_VERSION=6.0
 ARG PYTHON_VERSION=3.9
 
 RUN apt-get update -y && apt-get install -y --no-install-recommends  \
-    cmake software-properties-common wget bison flex make git software-properties-common gpg gpg-agent build-essential time \
+    cmake software-properties-common wget bison flex make git software-properties-common gpg gpg-agent build-essential time lcov\
     clang-format-${LLVM_VERSION} clang-tidy-${LLVM_VERSION} lldb-${LLVM_VERSION} \
     qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools libqt5opengl5-dev libgtk-3-0 default-jre vim tig \
     && ln -s /usr/bin/clang-format-${LLVM_VERSION} /usr/bin/clang-format \
@@ -50,6 +50,6 @@ RUN bash -c "source setenv && \
     make -j $(nproc) MODE=release base && \
     rm -r out"
 
+WORKDIR /root
 ENV HOME=/root/
 CMD /bin/bash --init-file /root/.bashrc
-WORKDIR /root

@@ -6,7 +6,7 @@ ARG OMNETPP_VERSION=6.0
 ARG PYTHON_VERSION=3.9
 
 RUN apt-get update -y && apt-get install -y --no-install-recommends  \
-    cmake software-properties-common wget bison flex make git software-properties-common gpg gpg-agent build-essential time \
+    cmake software-properties-common wget bison flex make git software-properties-common gpg gpg-agent build-essential time lcov \
     clang-format-${LLVM_VERSION} clang-tidy-${LLVM_VERSION} lldb-${LLVM_VERSION} \
     && ln -s /usr/bin/clang-format-${LLVM_VERSION} /usr/bin/clang-format \
     && ln -s /usr/bin/clang-tidy-${LLVM_VERSION} /usr/bin/clang-tidy \
@@ -38,7 +38,6 @@ RUN wget https://github.com/omnetpp/omnetpp/releases/download/omnetpp-${OMNETPP_
     tar xf omnetpp-src-linux.tgz && rm omnetpp-src-linux.tgz
 RUN mv omnetpp-${OMNETPP_VERSION} omnetpp
 WORKDIR /root/omnetpp
-ENV PATH /root/omnetpp/bin:$PATH
 
 RUN bash -c "source setenv && \
     ./configure WITH_OSG=no WITH_QTENV=no && \
@@ -47,4 +46,5 @@ RUN bash -c "source setenv && \
     rm -r doc out test samples config.log config.status ide"
 
 WORKDIR /root
+ENV PATH /root/omnetpp/bin:$PATH
 
