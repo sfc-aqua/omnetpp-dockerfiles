@@ -28,7 +28,7 @@ ln -sf /usr/bin/llvm-cov-${LLVM_VERSION} /usr/bin/llvm-cov
 wget -q -O - https://dl.google.com/linux/linux_signing_key.pub --progress=dot:giga | apt-key add -
 add-apt-repository ppa:deadsnakes/ppa
 apt-get update -y
-apt-get install -y --no-install-recommends
+apt-get install -y --no-install-recommends ${PYTHON_PKGS}
 
 wget https://bootstrap.pypa.io/get-pip.py --progress=dot:giga
 python${PYTHON_VERSION} ./get-pip.py
