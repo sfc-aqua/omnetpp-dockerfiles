@@ -12,8 +12,8 @@ jobs:
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
-          username: quisp-bot
-          password: ${{ secrets.GHCR_PAT }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and push ci image
         uses: docker/build-push-action@v3
         with:
