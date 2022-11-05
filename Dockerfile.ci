@@ -4,12 +4,13 @@ ARG DEBIAN_FRONTEND=noninteractive
 ARG LLVM_VERSION=13
 ARG OMNETPP_VERSION=6.0.1
 ARG PYTHON_VERSION=3.9
+ARG ARCHITECTURE
 
 COPY ./install.sh /root/install.sh
 RUN /root/install.sh ci
 
 WORKDIR /root
-RUN if ["$arch" != 'x86_64']; then ARCHITECTURE=aarch64; else ARCHITECTURE=x86_64; fi && wget https://github.com/omnetpp/omnetpp/releases/download/omnetpp-${OMNETPP_VERSION}/omnetpp-${OMNETPP_VERSION}-linux-${ARCHITECTURE}.tgz \
+RUN wget https://github.com/omnetpp/omnetpp/releases/download/omnetpp-${OMNETPP_VERSION}/omnetpp-${OMNETPP_VERSION}-linux-${ARCHITECTURE}.tgz \
     --referer=https://omnetpp.org/ -O omnetpp-src-linux.tgz --progress=dot:giga && \
     tar xf omnetpp-src-linux.tgz && rm omnetpp-src-linux.tgz
 RUN mv omnetpp-${OMNETPP_VERSION} omnetpp
