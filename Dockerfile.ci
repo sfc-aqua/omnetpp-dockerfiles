@@ -9,7 +9,7 @@ COPY ./install.sh /root/install.sh
 RUN /root/install.sh ci
 
 WORKDIR /root
-RUN wget https://github.com/omnetpp/omnetpp/releases/download/omnetpp-${OMNETPP_VERSION}/omnetpp-${OMNETPP_VERSION}-linux-x86_64.tgz \
+RUN if ["$arch" != 'x86_64']; then ARCHITECTURE=aarch64; else ARCHITECTURE=x86_64; fi && wget https://github.com/omnetpp/omnetpp/releases/download/omnetpp-${OMNETPP_VERSION}/omnetpp-${OMNETPP_VERSION}-linux-${ARCHITECTURE}.tgz \
     --referer=https://omnetpp.org/ -O omnetpp-src-linux.tgz --progress=dot:giga && \
     tar xf omnetpp-src-linux.tgz && rm omnetpp-src-linux.tgz
 RUN mv omnetpp-${OMNETPP_VERSION} omnetpp
