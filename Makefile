@@ -1,6 +1,5 @@
 DOCKER := docker
 PREFIX := omnetpp
-
 all: ci dev
 
 
