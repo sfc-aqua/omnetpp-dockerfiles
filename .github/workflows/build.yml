@@ -1,5 +1,5 @@
 name: docker build
-on: [push, pull_request]
+on: [push]
 jobs:
   build-dev-image:
     runs-on: ubuntu-latest
