@@ -1,0 +1,34 @@
+FROM mcr.microsoft.com/devcontainers/base:0-jammy
+ARG DEBIAN_FRONTEND=noninteractive
+ARG LLVM_VERSION=13
+ARG OMNETPP_VERSION=6.0.1
+ARG PYTHON_VERSION=3.9
+
+WORKDIR /root
+ENV PATH /root/omnetpp/bin:$PATH
+
+COPY ./install.sh /root/install.sh
+RUN /root/install.sh dev && arch=$(arch) && \
+    wget https://github.com/omnetpp/omnetpp/releases/download/omnetpp-${OMNETPP_VERSION}/omnetpp-${OMNETPP_VERSION}-linux-${arch}.tgz \
+    --referer=https://omnetpp.org/ -O omnetpp-src-linux.tgz --progress=dot:giga && \
+    tar xf omnetpp-src-linux.tgz && \
+    rm omnetpp-src-linux.tgz && \
+    mv omnetpp-${OMNETPP_VERSION} omnetpp && \
+    cd /root/omnetpp && \
+    bash -c "source setenv && \
+    ./configure WITH_OSG=no WITH_QTENV=yes && \
+    make -j $(nproc) MODE=debug base && \
+    make -j $(nproc) MODE=release base && \
+    rm -r out" && \
+    mv /root/omnetpp /usr/local/share/omnetpp && \
+    chmod -R 775 /usr/local/share/omnetpp && \
+    chown -R vscode /usr/local/share/omnetpp
+
+ENV QT_SELECT=5
+ENV OMNETPP_RELEASE=omnetpp-6.0
+ENV __omnetpp_root_dir=/usr/local/share/omnetpp
+ENV QT_LOGGING_RULES=*.debug=false;qt.qpa.*=false
+ENV PYTHONPATH=/usr/local/share/omnetpp/python
+ENV PATH=/usr/local/share/omnetpp/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:/root/.local/bin
+ENV LD_LIBRARY_PATH=/usr/local/share/omnetpp/lib
+
