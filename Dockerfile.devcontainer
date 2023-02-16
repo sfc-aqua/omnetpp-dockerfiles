@@ -13,14 +13,13 @@ RUN /root/install.sh dev && arch=$(arch) && \
     --referer=https://omnetpp.org/ -O omnetpp-src-linux.tgz --progress=dot:giga && \
     tar xf omnetpp-src-linux.tgz && \
     rm omnetpp-src-linux.tgz && \
-    mv omnetpp-${OMNETPP_VERSION} omnetpp && \
-    cd /root/omnetpp && \
+    mv omnetpp-${OMNETPP_VERSION} /usr/local/share/omnetpp && \
+    cd /usr/local/share/omnetpp && \
     bash -c "source setenv && \
     ./configure WITH_OSG=no WITH_QTENV=yes && \
     make -j $(nproc) MODE=debug base && \
     make -j $(nproc) MODE=release base && \
     rm -r out" && \
-    mv /root/omnetpp /usr/local/share/omnetpp && \
     chmod -R 775 /usr/local/share/omnetpp && \
     chown -R vscode /usr/local/share/omnetpp
 
