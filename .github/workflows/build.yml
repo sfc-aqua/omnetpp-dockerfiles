@@ -6,6 +6,12 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
+      - uses: actions/github-script@v6
+        id: ref-name
+        with:
+          script: |
+            return "${{github.ref_name}}".trim().replaceAll("/", "-")
+          result-encoding: string
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
@@ -25,13 +31,19 @@ jobs:
           file: ./Dockerfile.dev
           tags: |
             ghcr.io/${{ github.repository_owner }}/quisp:latest
-            ghcr.io/${{ github.repository_owner }}/quisp:${{ github.ref_name }}
+            ghcr.io/${{ github.repository_owner }}/quisp:${{ steps.ref-name.outputs.result }}
             ghcr.io/${{ github.repository_owner }}/quisp:${{ github.sha }}
   build-ci-image:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
+      - uses: actions/github-script@v6
+        id: ref-name
+        with:
+          script: |
+            return "${{github.ref_name}}".trim().replaceAll("/", "-")
+          result-encoding: string
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
@@ -51,13 +63,19 @@ jobs:
           file: ./Dockerfile.ci
           tags: |
             ghcr.io/${{ github.repository_owner }}/quisp-ci:latest
-            ghcr.io/${{ github.repository_owner }}/quisp-ci:${{ github.ref_name }}
+            ghcr.io/${{ github.repository_owner }}/quisp-ci:${{ steps.ref-name.outputs.result }}
             ghcr.io/${{ github.repository_owner }}/quisp-ci:${{ github.sha }}
   build-devcontainer-image:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
+      - uses: actions/github-script@v6
+        id: ref-name
+        with:
+          script: |
+            return "${{github.ref_name}}".trim().replaceAll("/", "-")
+          result-encoding: string
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
@@ -77,5 +95,5 @@ jobs:
           file: ./Dockerfile.devcontainer
           tags: |
             ghcr.io/${{ github.repository_owner }}/quisp-dev:latest
-            ghcr.io/${{ github.repository_owner }}/quisp-dev:${{ github.ref_name }}
+            ghcr.io/${{ github.repository_owner }}/quisp-dev:${{ steps.ref-name.outputs.result }}
             ghcr.io/${{ github.repository_owner }}/quisp-dev:${{ github.sha }}
