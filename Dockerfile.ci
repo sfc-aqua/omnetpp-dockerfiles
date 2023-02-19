@@ -24,4 +24,5 @@ RUN bash -c "source setenv && \
 
 WORKDIR /root
 ENV PATH /root/omnetpp/bin:$PATH
+ENV OMNETPP_DOCKERFILE_VERSION=0.9.3
 

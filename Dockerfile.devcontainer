@@ -30,4 +30,5 @@ ENV QT_LOGGING_RULES=*.debug=false;qt.qpa.*=false
 ENV PYTHONPATH=/usr/local/share/omnetpp/python
 ENV PATH=/usr/local/share/omnetpp/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:/root/.local/bin
 ENV LD_LIBRARY_PATH=/usr/local/share/omnetpp/lib
+ENV OMNETPP_DOCKERFILE_VERSION=0.9.3
 
