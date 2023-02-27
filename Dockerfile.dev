@@ -28,4 +28,4 @@ RUN bash -c "source setenv && \
 WORKDIR /root
 ENV HOME=/root/
 CMD /bin/bash --init-file /root/.bashrc
-ENV OMNETPP_DOCKERFILE_VERSION=0.9.5
+ENV OMNETPP_DOCKERFILE_VERSION=0.9.6
