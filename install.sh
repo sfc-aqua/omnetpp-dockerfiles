@@ -2,9 +2,9 @@
 set -eux
 
 DEFAULT_PKGS="cmake software-properties-common wget bison flex make git software-properties-common gpg gpg-agent build-essential time lcov"
-LLVM_PKGS="clang-format-${LLVM_VERSION} clang-tidy-${LLVM_VERSION} lldb-${LLVM_VERSION}"
+LLVM_PKGS="clang-format-${LLVM_VERSION} clang-tidy-${LLVM_VERSION} lldb-${LLVM_VERSION} clangd-${LLVM_VERSION}"
 GUI_PKGS="qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools libqt5opengl5-dev libqt5svg5 libgtk-3-0 default-jre"
-DEV_PKGS="vim tig net-tools iputils-ping net-tools iputils-ping openssh-client openssh-server gedit bear"
+DEV_PKGS="vim tig gdb net-tools iputils-ping net-tools iputils-ping openssh-client openssh-server gedit bear"
 
 if [ "$1" = "dev" ]; then
   INSTALL_PKGS="${DEFAULT_PKGS} ${LLVM_PKGS} ${GUI_PKGS} ${DEV_PKGS}"
