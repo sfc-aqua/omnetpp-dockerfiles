@@ -21,6 +21,7 @@ apt-get install -y --no-install-recommends ${INSTALL_PKGS}
 ln -sf /usr/bin/clang-format-${LLVM_VERSION} /usr/bin/clang-format
 ln -sf /usr/bin/clang-tidy-${LLVM_VERSION} /usr/bin/clang-tidy
 ln -sf /usr/bin/clang-${LLVM_VERSION} /usr/bin/clang
+ln -sf /usr/bin/clangd-${LLVM_VERSION} /usr/bin/clangd
 ln -sf /usr/bin/clang++-${LLVM_VERSION} /usr/bin/clang++
 ln -sf /usr/bin/llvm-profdata-${LLVM_VERSION} /usr/bin/llvm-profdata
 ln -sf /usr/bin/llvm-cov-${LLVM_VERSION} /usr/bin/llvm-cov
