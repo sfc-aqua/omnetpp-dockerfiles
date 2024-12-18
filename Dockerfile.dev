@@ -2,8 +2,8 @@ FROM ubuntu:22.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG LLVM_VERSION=13
-ARG OMNETPP_VERSION=6.0.1
-ARG PYTHON_VERSION=3.9
+ARG OMNETPP_VERSION=6.1.0
+ARG PYTHON_VERSION=3.11
 
 COPY ./install.sh /root/install.sh
 RUN /root/install.sh dev
